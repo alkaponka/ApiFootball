@@ -1,45 +1,36 @@
 import requests
-
-def country():    #список країн
-	url = "https://api-football-v1.p.rapidapi.com/v3/teams/countries"
-
-	headers = {
+headers = {
 		"X-RapidAPI-Key": "",
 		"X-RapidAPI-Host": "api-football-v1.p.rapidapi.com"
 	}
+def country():    #list county
 
-	response_country = requests.request("GET", url, headers=headers)
+	response_country = requests.get("https://api-football-v1.p.rapidapi.com/v3/teams/countries", headers=headers)
 
 	if response_country == 200:
 		return print(response_country.text)
 	else:
 		print(f"Error country {response_country.status_code}")
 
-def leagues(q: str):    #список ліг
-	url = "https://api-football-v1.p.rapidapi.com/v3/leagues"
+def leagues(q: str):    #list leagues
 
 	querystring1 = {"country": q}
 
-	headers = {
-		"X-RapidAPI-Key": "",
-		"X-RapidAPI-Host": "api-football-v1.p.rapidapi.com"
-	}
-	response_leagues = requests.request("GET", url, headers=headers, params=querystring1)
+	response_leagues = requests.get("https://api-football-v1.p.rapidapi.com/v3/leagues", headers=headers, params=querystring1)
+
 	if response_leagues.status_code == 200:
 		return print(response_leagues.text)
 	else:
 		print(f"error leagues {response_leagues.status_code}")
 
-def comand_liga_status(year, liga :int, str): #список команд в лізі + сезон
+def comand_liga_status(year, liga :int): # list comand and season
 
 	url = "https://api-football-v1.p.rapidapi.com/v3/standings"
 
-	querystring2 = {"season": "2020", "league": "39"}
-	headers = {
-		"X-RapidAPI-Key": "d26fee3105msh10f5ca34bebfe21p11bf79jsnbd00c854e495",
-		"X-RapidAPI-Host": "api-football-v1.p.rapidapi.com"
-	}
-	response_comand = requests.request("GET", url, headers=headers, params=querystring2)
+	querystring2 = {"season": year, "league": liga}
+
+	response_comand = requests.get("https://api-football-v1.p.rapidapi.com/v3/standings", headers=headers, params=querystring2)
+
 	if response_comand.status_code == 200:
 		return print(response_comand.text)
 	else:
@@ -47,10 +38,10 @@ def comand_liga_status(year, liga :int, str): #список команд в лі
 
 def main():
 	country()
-	q = str(input("Ведіть країну щоб отримати список ліг:"))
+	q = str(input("Enter the country:"))
 	leagues(q)
-	year = int(input("Ведіть рік сезону:"))
-	liga = str(input("Ведіть id ліги :"))
+	year = int(input("Year of the season:"))
+	liga = int(input("League id :"))
 	comand_liga_status(year, liga)
 
 
