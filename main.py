@@ -1,10 +1,13 @@
 import requests
+import os
+from dotenv import load_dotenv
 
-with open("apikey.txt", "r") as f:
-	file = f.read()
+load_dotenv()
+
+key = os.getenv("key_football")
 
 headers = {
-		"X-RapidAPI-Key": file,
+		"X-RapidAPI-Key": key,
 		"X-RapidAPI-Host": "api-football-v1.p.rapidapi.com"
 	}
 def country():    #list county
