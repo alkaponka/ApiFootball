@@ -1,6 +1,10 @@
 import requests
+
+with open("apikey.txt", "r") as f:
+	file = f.read()
+
 headers = {
-		"X-RapidAPI-Key": "",
+		"X-RapidAPI-Key": file,
 		"X-RapidAPI-Host": "api-football-v1.p.rapidapi.com"
 	}
 def country():    #list county
